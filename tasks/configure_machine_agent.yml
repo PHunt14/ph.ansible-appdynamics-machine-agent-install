@@ -1,0 +1,36 @@
+---
+
+- name: copy keystore
+  copy:
+    src: cacerts.jks
+    dest: "{{ machine_agent_home }}/conf/"
+    owner: appdyn
+    group: appdyn
+
+- name: create controller-info.xml
+  template:
+    src: controller-info.j2
+    dest: "{{ machine_agent_home }}/conf/controller-info.xml"
+    owner: appdyn
+    group: appdyn
+
+- name: create init.d script
+  template:
+    src: machine_agent_init.j2
+    dest: /etc/init.d/appdynamics-machine-agent
+    mode: 0751
+    owner: root
+    group: root
+
+- name: reload systemd daemon
+  command: systemctl daemon-reload
+
+- name: create log directory
+  file:
+    path: "{{ machine_agent_home }}/logs"
+    state: directory
+    mode: 0755 
+    owner: appdyn
+    group: appdyn
+
+...

@@ -1,0 +1,9 @@
+---
+
+- name: start and enable the machine agent to start at boot
+  service:
+    name: appdynamics-machine-agent.service
+    state: restarted
+    enabled: true
+
+...

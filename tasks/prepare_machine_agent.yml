@@ -1,0 +1,16 @@
+---
+
+- name: create machine-agent directory
+  file:
+    state: directory
+    path: "{{ machine_agent_home }}"
+    owner: appdyn
+    group: appdyn
+#/opt/appdynamics/machine-agent
+
+- name: copy machine-agent installer
+  copy:
+    src: "{{ machine_agent_installer }}"
+    dest: "{{ machine_agent_home }}"
+
+...

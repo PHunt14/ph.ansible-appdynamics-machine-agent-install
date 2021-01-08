@@ -1,0 +1,10 @@
+---
+
+machine_agent_home: /opt/appdynamics/machine-agent
+machine_agent_installer: MachineAgent-20.8.0.2713.zip
+
+controller_host:
+controller_port:
+controller_access_key:
+server_agent_enabled: true
+ssl_enabled: false

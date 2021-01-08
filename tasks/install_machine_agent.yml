@@ -1,0 +1,11 @@
+---
+
+- name: unzip machine agent
+  unarchive:
+    src: "{{ machine_agent_home}}/{{ machine_agent_installer }}"
+    dest: "{{ machine_agent_home}}"
+    remote_src: true
+    owner: appdyn
+    group: appdyn
+
+...

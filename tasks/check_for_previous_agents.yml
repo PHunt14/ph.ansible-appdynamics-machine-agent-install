@@ -1,0 +1,20 @@
+---
+
+- name: check if machine agent is installed
+# check for the existence of the /opt/appdynamics/machine-agent/ directory?
+# check for the rpm
+  command: rpm -q appdynamics-machine-agent
+  register: machine_agent_status
+  ignore_errors: true
+
+- name: set previous_agent fact to true
+  set_fact:
+    previous_agent: true
+  when: '"is installed" in machine_agent_status.stdout'
+
+- name: set previous_agent fact to false
+  set_fact:
+    previous_agent: false
+  when: '"is not installed" in machine_agent_status.stdout'
+
+...

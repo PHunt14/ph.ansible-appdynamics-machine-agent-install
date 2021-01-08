@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# chkconfig: 2345 75 25
+# -----------------------------------------------------------------------------
+# Typical AppDynamics Machine Agent Startup
+# -----------------------------------------------------------------------------
+
+JAVA=/bin/java
+
+AGENT_HOME={{ machine_agent_home }}
+AGENT="$AGENT_HOME/machineagent.jar"
+AGENT_USER=appdyn
+
+
+start()
+{
+su - $AGENT_USER -c "nohup $JAVA $AGENT_OPTIONS -jar -Xmx64m $AGENT > $AGENT_HOME/logs/machine-agent.log 2>&1 &"
+}
+
+stop()
+{
+ps -ef | grep machineagent.jar | grep java | awk '{print $2}' | xargs --no-run-if-empty kill -9
+}
+
+case "$1" in
+start)
+start
+;;
+stop)
+stop
+;;
+restart)
+stop
+start
+;;
+*)
+echo "Usage: $0 start|stop|restart"
+esac
